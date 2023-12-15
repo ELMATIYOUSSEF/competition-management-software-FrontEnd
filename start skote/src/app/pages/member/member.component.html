@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">Members</h4>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item active">Club Aftas - Members</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+            <button type="button" class="btn btn-primary btn-rounded"  (click)="open()" >Add Member</button>
+          <p class="card-title-desc pt-3">
+            All Members available 
+          </p>
+          <div class="table-responsive">
+            <table class="table mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>First Name</th>
+                  <th>family Name</th>
+                  <th>accessionDate</th>
+                  <th>nationality</th>
+                  <th>identity Document Type</th>
+                  <th>identity Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let member of members , let i = index" >
+                  <td>{{i+1}}</td>
+                  <td>{{member.name}}</td>
+                  <td>{{member.familyName }}</td>
+                  <td>{{member.accessionDate }}</td>
+                  <td>{{member.nationality}}</td>
+                  <td>{{member.identityDocumentType}}</td>
+                  <td>{{member.identityNumber}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
