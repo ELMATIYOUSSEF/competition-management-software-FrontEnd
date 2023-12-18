@@ -1,14 +1,11 @@
 import { Component, OnInit ,inject ,Input, Output, EventEmitter } from '@angular/core';
 import { MemberService } from './service/service.service';
 import { Member, classMember } from './member.module';
-import { map, startWith, catchError } from 'rxjs/operators';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { ApiResponse } from 'src/app/core/models/api.response';
-import { Page } from 'src/app/core/models/paginated.response.model';
-import { HttpErrorResponse } from '@angular/common/http';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { PaginationModel } from 'src/app/core/core.module'; 
 import { DatePipe } from '@angular/common';
 import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-member',
@@ -16,39 +13,49 @@ import { NgbModal,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./member.component.scss']
 })
 export class MemberComponent implements OnInit {
-  usersState$: Observable<{ appState: string, appData?: ApiResponse<Page<any>>, error?: HttpErrorResponse }>;
   members: Member[] = [];
+  query:any;
+  num :any;
   pagination: PaginationModel = new PaginationModel(0, 10, 0, 0);
-
+  
   constructor(private memberService: MemberService ,private datePipe :DatePipe,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal ) { }
 
   ngOnInit(): void {
-   //this.loadingService.loadingOn();
-  this.Onlouding(0,10);
+  this.Onlouding( 0,10);
   }
+
+
   public Onlouding(page: number,size: number) {
     this.memberService.findAllMember(page,size).subscribe({
       next: (res) => {
-        console.log(res['data']['member']);
-        this.members = res['data']['member'].map((member: Member) => {
+        console.log(res.data['member']);
+        this.members = res.data['member'].map((member: Member) => {
           return {
             ...member,
             //yyyy-MM-dd HH:mm:ss
             accessionDate: this.datePipe.transform(member.accessionDate, 'yyyy-MM-dd')
           };
         });
-
-        this.pagination.pageSize = res['data']['pageSize'];
-        this.pagination.pageNumber = res['data']['pageNumber'];
-        this.pagination.totalElements = res['data']['totalElements'];
-        this.pagination.totalPages = res['data']['totalPages'];
+        console.log(res.data['totalElements']);
+        this.pagination.pageSize = res.data['pageSize'];
+        this.pagination.pageNumber = res.data['pageNumber'];
+        this.pagination.totalElements = res.data['totalElements'];
+        this.pagination.totalPages = res.data['totalPages'];
       },
       error: err => {
         console.error(err);
       }
     })
   }
+
+  loadDataByPage(pageNumber: number): void {
+    this.Onlouding(pageNumber,10);
+  }
+  generatePageNumbers(): number[] {
+    return Array.from({ length: this.pagination.totalPages }, (_, index) => index + 1);
+  }
+
 
   public open() {
     const modalRef = this.modalService.open(NgbdModalContent);
@@ -125,13 +132,19 @@ export class NgbdModalContent implements OnInit {
     console.log(this.saveMember);
   this.memberService.createMember(this.saveMember).subscribe((member)=> {
     if (member) {
-     // this.memberComponent.Onlouding(0,10);
       this.memberComponent.members.push(member);
       this.memberSaved.emit(member);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Member has been saved successfully',
+        showConfirmButton: false,
+        timer: 1500
+      });
   } else {
-    console.error("Error: Response data is undefined.");
+    Swal.fire(" Response data is undefined.")
   }
     this.activeModal.close();
-  })
+  },(error: any) => { Swal.fire(error.error.Error)}) 
   }
 }

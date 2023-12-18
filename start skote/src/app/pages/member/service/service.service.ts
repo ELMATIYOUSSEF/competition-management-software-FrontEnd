@@ -19,7 +19,7 @@ export class MemberService {
 /*  members$ = ( page: number = 0, size: number = 10): Observable<ApiResponse<Page <any>>> => 
     this.http.get<ApiResponse<Page<any>>>(`${this.baseUrl}?page=${page}&size=${size}`);*/
 
- findAllMember(page: number = 0, size: number = 10): Observable<PaginatedResponse<Member>>{
+ findAllMember(page: number , size: number): Observable<PaginatedResponse<Member>>{
     return this.http.get<PaginatedResponse<Member>>(`${this.baseUrl}?page=${page}&size=${size}`);
  }
   createMember(memberData: any): Observable<any> {
@@ -27,8 +27,8 @@ export class MemberService {
     return this.http.post(`${this.baseUrl}`, memberData);
   }
 
-  getAllMembers(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+  getMemberService(id:number): Observable<any> {
+    return this.http.get(`${this.baseUrl}?id=${id}`);
   }
 
   updateMember(updatedMemberData: any): Observable<any> {

@@ -1,1 +1,232 @@
-<p>details works!</p>
+<div class="container-fluid">
+    <app-page-title title="Competition" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mini-stats-wid">
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap">
+                                <div class="mr-3">
+                                    
+                                      <p class="text-muted mb-2">Total Competitions</p>
+                                    <h5 class="mb-0">{{competitions.length}}</h5>
+                                </div>
+                                <div class="avatar-sm ms-auto">
+                                    <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
+                                        <i class="bx bxs-book-bookmark"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card blog-stats-wid">
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap">
+                                <div class="me-3" *ngIf="competition?.numberOfParticipants>0">
+                                    <p class="text-muted mb-2">number Of Participants</p>
+                                    <h5 class="mb-0">{{competition?.numberOfParticipants}} </h5>
+                                 </div>
+                                <div class="avatar-sm ms-auto">
+                                    <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
+                                        <i class="bx bxs-note"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card blog-stats-wid">
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap">
+                                <div class="mr-3">
+                                    <p class="text-muted mb-2">Total Members</p>
+                                    <h5 class="mb-0">{{members.length}}</h5>
+                                </div>
+                                <div class="avatar-sm ms-auto">
+                                    <div class="avatar-title bg-light rounded-circle text-primary font-size-20">
+                                        <i class="bx bxs-message-square-dots"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body border-bottom">
+                        <div class="float-end dropdown ms-2" ngbDropdown>
+                            <a class="text-muted dropdown-toggle" href="javascript: void(0);" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                                <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                            </a>
+    
+                        </div>
+    
+                        <div>
+                            <div class="mb-4 me-3">
+                                <i class="bx bxl-algolia
+                                text-primary h1"></i>
+                            </div>
+    
+                            <div class="row justify-content-end">
+                                <div class="col-lg-8 ">
+                                    <app-countdown-component [endDate]="date"></app-countdown-component>
+                                </div>
+                                <div class="col-lg-4 float-right">
+                                    <div class="border p-3 rounded mt-4 ">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="avatar-xs me-3">
+                                                <span
+                                                    class="avatar-title rounded-circle bg-warning bg-soft text-warning font-size-18">
+                                                    <i class="bx bxs-user-plus"></i>
+                                                </span>
+                                            </div>
+                                            <h5 class="font-size-14 mb-0">Register participant</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 align-self-end justify-content-around ">
+                                              <a class="btn btn-primary btn btn-rounded" [routerLink]="['/competitions/'+competitionCode,'poduim']" *ngIf="distance<=0">show poduim</a>
+                                                <div class="float-end ">
+                                                    <button type="button" class="btn btn-primary btn btn-rounded" (click)="openModal(content,'Fish',1)">Register</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+             </div>
+
+            <div class="col-lg-12" *ngIf="distance<=0" >
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title mb-4">Espace Hunting</h4>
+                    <aw-wizard [navBarLayout]="'large-empty-symbols'">
+                      <aw-wizard-step>
+                        <ng-template awWizardStepSymbol>
+                          <i class="fas fa-user"></i>
+                        </ng-template>
+                        <div class="row justify-content-center">
+                          <div class="col-6">
+                            <div class="mb-3">
+
+                                  <label for="recipient-SelectMember" class="col-form-label">Select Member:</label>
+                                  <select class="form-select SelectMember" name="selectedmember" [(ngModel)]="selectedmember">
+                                    <option selected disabled>Select ranking available</option>
+                                    <option *ngFor="let comp of competition?.ranks"  [value]="comp.member.id">
+                                      {{ comp.member.name}}
+                                    </option>
+                                  </select>
+   
+                            </div>
+                          </div>
+                        </div>
+                        <ul class="list-inline wizard mb-0">
+                          <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
+                          </li>
+                        </ul>
+                      </aw-wizard-step>
+          
+                      <aw-wizard-step>
+                        <ng-template awWizardStepSymbol>
+                          <i class="fas fa-user-circle"></i>
+                        </ng-template>
+                        <div class="row justify-content-center">
+                          <div class="col-6">
+                            <div class="mb-3">
+
+                              <label for="recipient-SelectMember" class="col-form-label">Select Fish:</label>
+                              <select class="form-select SelectMember" name="selectedfish" [(ngModel)]="selectedfish">
+                                <option selected disabled>Select Fishing available</option>
+                                <option *ngFor="let fish of Fishs"  [value]="fish.name">
+                                  {{ fish.name}} => average Weight : {{ fish.averageWeight}}
+                                </option>
+                              </select>
+
+                        </div>
+                            <div class="row mb-3">
+                              <label class="col-md-3 col-form-label">Poids Fish</label>
+                              <div class="col-md-9">
+                                <input class="form-control" name="Poids" type="text" placeholder="Enter Poids"  [(ngModel)]="selectedPoids" >
+                              </div>
+                            </div>
+                           
+                          </div>
+                        </div>
+                        <ul class="list-inline wizard mb-0">
+                          <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
+                          </li>
+                          <li class="next list-inline-item float-end"><button class="btn btn-primary"  (click)="getfishPoids()" awNextStep>Next</button>
+                          </li>
+                        </ul>
+                      </aw-wizard-step>
+          
+                      <aw-wizard-step>
+                        <ng-template awWizardStepSymbol>
+                          <i class="fas fa-check-circle"></i>
+                        </ng-template>
+                        <div class="row justify-content-center">
+                          <div class="col-lg-6">
+                            <div class="text-center">
+                              <div class="mb-4">
+                                <i class="mdi mdi-check-circle-outline text-success display-4"></i>
+                              </div>
+                              <div>
+                                <h5>Hunting Done</h5>
+                                <p class="text-muted">Congratulations on completing the hunting process! </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <ul class="list-inline wizard mb-0">
+                          <li class="previous list-inline-item"><button class="btn btn-primary" awPreviousStep>Previous</button>
+                          </li>
+                        </ul> -->
+                      </aw-wizard-step>
+                    </aw-wizard>
+                  </div>
+                </div>
+              </div>
+       
+      </div>
+    </div>
+    <ng-template #content role="document" let-modal>
+
+    <div class="modal bs-example-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title mt-0">Modal title</h5>
+              <button type="button" class="btn-close" data-dismiss="modal"  (click)="modal.dismiss('Cross click')" aria-label="Close">
+                <span aria-hidden="true"></span>
+              </button>
+            </div>
+                        <div class="row">           
+                          <div class="mb-3">
+                            <label for="recipient-SelectMember" class="col-form-label">Select Member:</label>
+                              <select class="form-select SelectMember" name="selectedfish" [(ngModel)]="RegisterMember">
+                                <option selected disabled>Select Fishing available</option>
+                                <option *ngFor="let member of members"  [value]="member.id">
+                                  {{ member.name}} {{ member.familyName}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="regiter()" >Register</button>
+              <button type="button"  class="btn btn-secondary" data-dismiss="modal" (click)="modal.dismiss('Cross click')">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </ng-template>

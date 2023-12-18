@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChildren } from '@a
 import {CompetitionService} from "../service/service.service";
 import { NgbActiveModal, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Competition, classCompetition } from '../competition.module';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-competition',
@@ -109,11 +110,20 @@ export class NgbdModalAddCompetition  implements OnInit {
     if (competition) {
       console.log(competition.data+" created");
       this.CompSaved.emit(competition.data);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Competition has been saved successfully',
+        showConfirmButton: false,
+        timer: 1500
+      });
   } else {
     console.error("Error: Response data is undefined.");
   }
     this.activeModal.close();
-  })
+
+  },
+  (error: any) => { Swal.fire(error.error.Error)})
   }
 }
 

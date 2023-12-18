@@ -35,7 +35,7 @@
                     <td>{{competition.location}}</td>
                     <td>{{competition.amount}}</td>
                     <td>      
-                      <a class="btn btn-primary ms-2" routerLink="details" >
+                      <a class="btn btn-primary ms-2" [routerLink]="['details',competition.code]">
                       <i class="bx bxs-show font-size-16 align-middle me-0"></i>
                       </a>
                     </td>

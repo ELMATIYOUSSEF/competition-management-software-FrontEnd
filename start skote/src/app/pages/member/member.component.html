@@ -20,6 +20,27 @@
           <p class="card-title-desc pt-3">
             All Members available 
           </p>
+          <div class="justify-content-between d-flex ">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="tickets-table_length"><label
+                class="d-inline-flex align-items-center">Show
+                <select aria-controls="tickets-table" name="pageSize"
+                        [(ngModel)]="pagination.pageSize" class="form-control form-control-sm mx-2">
+                  <option [ngValue]="10">10</option>
+                  <option [ngValue]="25">25</option>
+                  <option [ngValue]="50">50</option>
+                  <option [ngValue]="100">100</option>
+                </select> entries</label></div>
+            </div>
+            <!-- Search -->
+            <div class="col-sm-12 col-md-6">
+              <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                class="d-inline-flex align-items-center">Search:
+                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                       aria-controls="tickets-table" [(ngModel)]="query"></label></div>
+            </div>
+          </div>
+         
           <div class="table-responsive">
             <table class="table mb-0">
               <thead>
@@ -45,6 +66,24 @@
                 </tr>
               </tbody>
             </table>
+            <div class="row justify-content-md-between align-items-md-center mt-2">
+              <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">Showing
+                  {{1}} to
+                  {{ pagination.totalElements }} of {{pagination?.totalElements}}
+                  entries
+                </div>
+              </div>
+              <nav aria-label="Page navigation example  " >
+                <ul class="pagination justify-content-end">
+                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                  <li class="page-item" *ngFor="let pageNumber of generatePageNumbers()">
+                    <button class="page-link" (click)="loadDataByPage(pageNumber)">{{ pageNumber }}</button>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+              </nav>
+            </div>
           </div>
         </div>
       </div>

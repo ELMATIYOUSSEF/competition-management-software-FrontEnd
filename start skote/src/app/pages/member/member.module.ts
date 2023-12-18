@@ -5,17 +5,18 @@ import {routes} from "./routes/member.route";
 import {SharedModule} from "../../shared/shared.module";
 import { FormsModule } from "@angular/forms";
 import { CommonModule, DatePipe } from "@angular/common";
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbPagination, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [MemberComponent,NgbdModalContent],
   imports: [
+    NgbPaginationModule,
     SharedModule,
     FormsModule,
     CommonModule, 
     RouterModule.forChild(routes)
   ],
-  providers: [DatePipe, NgbModal,NgbActiveModal , MemberComponent]
+  providers: [DatePipe, NgbModal,NgbActiveModal , MemberComponent ]
 })
 export class MemberModule {}
 
