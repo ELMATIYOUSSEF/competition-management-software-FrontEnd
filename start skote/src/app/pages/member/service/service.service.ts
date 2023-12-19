@@ -39,8 +39,8 @@ export class MemberService {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
-  searchMember(name: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/search?name=${name}`);
+  searchMember(name: string , page: number , size: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/search?name=${name}&page=${page}&size=${size}`);
   }
 
 }

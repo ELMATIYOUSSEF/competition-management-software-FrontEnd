@@ -33,11 +33,15 @@
                 </select> entries</label></div>
             </div>
             <!-- Search -->
-            <div class="col-sm-12 col-md-6">
-              <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+            <div class="col-sm-12 col-md-6  ">
+              <div id="tickets-table_filter" class="dataTables_filter text-md-end p-2 justify-content-md-between"><label
                 class="d-inline-flex align-items-center">Search:
-                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
-                       aria-controls="tickets-table" [(ngModel)]="query"></label></div>
+                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2 pr-5"
+                       aria-controls="tickets-table" [(ngModel)]="query"></label>
+                       <button type="button" (click)="Search()" class="btn btn-dark  ">
+                        <i class="bx bx-loader bx-spin font-size-12 align-middle "></i> Loading
+                    </button> 
+              </div>   
             </div>
           </div>
          
@@ -56,7 +60,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let member of members , let i = index" >
-                  <td>{{i+1}}</td>
+                  <td>{{i}}</td>
                   <td>{{member.name}}</td>
                   <td>{{member.familyName }}</td>
                   <td>{{member.accessionDate }}</td>
@@ -76,11 +80,11 @@
               </div>
               <nav aria-label="Page navigation example  " >
                 <ul class="pagination justify-content-end">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                  <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
                   <li class="page-item" *ngFor="let pageNumber of generatePageNumbers()">
-                    <button class="page-link" (click)="loadDataByPage(pageNumber)">{{ pageNumber }}</button>
+                    <button class="page-link" (click)="loadDataByPage(pageNumber-1)">{{ pageNumber }}</button>
                   </li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                  <!-- <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
                 </ul>
               </nav>
             </div>

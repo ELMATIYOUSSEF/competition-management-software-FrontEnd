@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CompetitionService } from '../service/service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-podium-component',
@@ -18,8 +19,12 @@ export class PodiumComponentComponent implements OnInit {
     this.competitionCode = this.router.snapshot.paramMap.get('code');
     this.service.getRanks(this.competitionCode).subscribe({
       next: (res) => {
+        console.log(res);
           this.ranks = res;
-      }
+      },
+      error :(err) => {
+        Swal.fire(err.error.message);
+      },
     })
   }
 

@@ -22,7 +22,7 @@ export class MemberComponent implements OnInit {
     private modalService: NgbModal ) { }
 
   ngOnInit(): void {
-  this.Onlouding( 0,10);
+  this.Onlouding( 0,2);
   }
 
 
@@ -49,13 +49,34 @@ export class MemberComponent implements OnInit {
     })
   }
 
+  sendQuery(query: string, page: number, size: number) {
+    this.memberService.searchMember(query, page, size).subscribe(
+      (response) => {
+        console.log(response); 
+        this.members = response.data.content;
+        this.pagination.pageSize = response.data.content['pageSize'];
+        this.pagination.pageNumber = response.data.content['pageNumber'];
+        this.pagination.totalElements =response.data.content['totalElements'];
+        this.pagination.totalPages = response.data.content['totalPages'];
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+  
+
   loadDataByPage(pageNumber: number): void {
-    this.Onlouding(pageNumber,10);
+    this.Onlouding(pageNumber,2);
   }
   generatePageNumbers(): number[] {
     return Array.from({ length: this.pagination.totalPages }, (_, index) => index + 1);
   }
 
+  Search(){
+    console.log(this.query);
+    this.sendQuery(this.query,0,10);
+  }
 
   public open() {
     const modalRef = this.modalService.open(NgbdModalContent);
