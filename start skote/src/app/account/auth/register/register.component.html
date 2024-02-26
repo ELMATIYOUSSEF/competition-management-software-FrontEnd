@@ -1,0 +1,172 @@
+<div class="account-pages my-5 pt-sm-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-5">
+          <div class="card overflow-hidden">
+            <div class="bg-soft bg-primary">
+              <div class="row">
+                <div class="col-7">
+                  <div class="text-primary p-4">
+                    <h5 class="text-primary">Free Register</h5>
+                    <p>Get your free Skote account now.</p>
+                  </div>
+                </div>
+                <div class="col-5 align-self-end">
+                  <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                </div>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              <div>
+                <a routerLink="/">
+                  <div class="avatar-md profile-user-wid mb-4">
+                    <span class="avatar-title rounded-circle bg-light">
+                      <img src="assets/images/logo.svg" alt="" class="rounded-circle" height="34">
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div class="p-2">
+  
+                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                    <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">Registeration
+                        successfull.
+                    </ngb-alert>
+
+                    <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+
+                    <div class="mb-3">
+                        <label for="firstName">firstName</label>
+                        <input type="text" formControlName="name" class="form-control" id="username"
+                            [ngClass]="{ 'is-invalid': submitted && dataForm.name.errors }"
+                            placeholder="Enter firstName">
+                        <div *ngIf="submitted && dataForm.name.errors" class="invalid-feedback">
+                            <div *ngIf="dataForm.name.errors.required">firstName is required</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="lastName">lastName</label>
+                        <input type="text" formControlName="familyName" class="form-control" id="lastName"
+                            [ngClass]="{ 'is-invalid': submitted && dataForm.familyName.errors }"
+                            placeholder="Enter lastName">
+                        <div *ngIf="submitted && dataForm.familyName.errors" class="invalid-feedback">
+                            <div *ngIf="dataForm.familyName.errors.required">lastName is required</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="accessionDate" class="col-form-label"> AccessionDate :</label>
+                      <input type="date" formControlName="accessionDate" class="form-control" id="accessionDate"
+                            [ngClass]="{ 'is-invalid': submitted && dataForm.accessionDate.errors }"
+                            placeholder="Enter accessionDate">
+                      <div *ngIf="submitted && dataForm.accessionDate.errors" class="invalid-feedback">
+                       <div *ngIf="dataForm.accessionDate.errors.required">accessionDate is required</div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="nationality" class="col-form-label">Nationality :</label>
+                      <input type="text" formControlName="nationality" class="form-control" id="nationality"
+                            [ngClass]="{ 'is-invalid': submitted && dataForm.nationality.errors }"
+                            placeholder="Enter nationality">
+                      <div *ngIf="submitted && dataForm.nationality.errors" class="invalid-feedback">
+                        <div *ngIf="dataForm.nationality.errors.required">nationality is required</div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="identityNumber" class="col-form-label">Identity Number :</label>
+                      <input type="text" formControlName="identityNumber" class="form-control" id="identityNumber"
+                            [ngClass]="{ 'is-invalid': submitted && dataForm.identityNumber.errors }"
+                            placeholder="Enter identityNumber">
+                      <div *ngIf="submitted && dataForm.identityNumber.errors" class="invalid-feedback">
+                        <div *ngIf="dataForm.identityNumber.errors.required">identityNumber is required</div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="identityDocumentType" class="col-form-label">Identity Document Type  :</label>
+                      <select  formControlName="identityDocumentType" class="form-control" id="identityDocumentType"
+                      [ngClass]="{ 'is-invalid': submitted && dataForm.identityDocumentType.errors }">
+                        <option disabled selected>select Identity Document Type</option>
+                        <option value="CIN">CIN</option>
+                        <option value="PASSPORT">PASSPORT</option>
+                        <option value="RESIDENCE_CARD">RESIDENCE CARD</option>
+                      </select>
+                      <div *ngIf="submitted && dataForm.identityDocumentType.errors" class="invalid-feedback">
+                        <div *ngIf="dataForm.identityDocumentType.errors.required">identityDocumentType is required</div>
+                      </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="useremail">Email</label>
+                        <input type="email" formControlName="email"
+                            [ngClass]="{ 'is-invalid': submitted && dataForm.email.errors }"
+                            class="form-control" id="useremail" placeholder="Enter email">
+                        <div *ngIf="submitted && dataForm.email.errors" class="invalid-feedback">
+                            <div *ngIf="dataForm.email.errors.required">Email is required</div>
+                            <div *ngIf="dataForm.email.errors.email">Email must be a valid email address</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="userpassword">Password</label>
+                        <input type="password" formControlName="password"
+                            [ngClass]="{ 'is-invalid': submitted && dataForm.password.errors }"
+                            class="form-control" id="userpassword" placeholder="Enter password">
+                        <div *ngIf="submitted && dataForm.password.errors" class="invalid-feedback">
+                            <div *ngIf="dataForm.password.errors.required">Password is required</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="mb-0">By registering you agree to the Skote <a
+                                href="javascript: void(0);" class="text-primary">Terms of Use</a>
+                        </p>
+                    </div>
+
+                    <div class="mt-4 d-grid">
+                        <button class="btn btn-primary btn-block" type="submit">Register</button>
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <h5 class="font-size-14 mb-3">Sign up using</h5>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a href="javascript::void()"
+                                    class="social-list-item bg-primary text-white border-primary">
+                                    <i class="mdi mdi-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript::void()"
+                                    class="social-list-item bg-info text-white border-info">
+                                    <i class="mdi mdi-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript::void()"
+                                    class="social-list-item bg-danger text-white border-danger">
+                                    <i class="mdi mdi-google"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- end card -->
+  
+          <div class="mt-5 text-center">
+            <p>Already have an account ? <a routerLink="/account/login" class="fw-medium text-primary"> Login</a>
+            </p>
+            <p>© {{year}} . Crafted with <i class="mdi mdi-heart text-danger"></i> by MATI</p>
+          </div>
+        </div> <!-- end col -->
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- end container -->
+  </div>

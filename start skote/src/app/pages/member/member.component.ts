@@ -19,7 +19,7 @@ export class MemberComponent implements OnInit {
   pagination: PaginationModel = new PaginationModel(0, 10, 0, 0);
   
   constructor(private memberService: MemberService ,private datePipe :DatePipe,
-    private modalService: NgbModal ) { }
+    private modalService: NgbModal , ) { }
 
   ngOnInit(): void {
   this.Onlouding( 0,2);
@@ -85,6 +85,50 @@ export class MemberComponent implements OnInit {
     modalRef.componentInstance.memberSaved.subscribe((newMember: Member) => {
       this.members.push(newMember);
     });
+  }
+
+  alert(id: number) {
+    let member = this.findMemberById(id);
+    Swal.fire({
+      title: 'Enable members',
+      text: `Do you want to enabled Member : ${member.name} ${member.familyName}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Yes'
+    }).then(result => {
+      if (result.value) {
+        this.enableMember(member);
+      }
+    });
+  }
+
+  enableMember(member: Member) {
+    this.memberService.enableMember(member.id).subscribe(
+      () => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: `Member has been enabled with successfully`,
+          showConfirmButton: false,
+          timer: 1500
+        });        
+      },
+      (error) => {
+        console.error(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "An error occurred while enabling/disabling member!",
+          footer: '<a href="#">Why do I have this issue?</a>'
+        });
+      }
+    );
+
+  }
+  findMemberById(id: number) {
+    return this.members.find(member => member.id === id);
   }
 
 

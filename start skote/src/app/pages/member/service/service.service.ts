@@ -42,5 +42,8 @@ export class MemberService {
   searchMember(name: string , page: number , size: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/search?name=${name}&page=${page}&size=${size}`);
   }
+  enableMember(idMember: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/active?idMember=${idMember}`,{});
+  }
 
 }

@@ -129,10 +129,14 @@
                             </div>
                           </div>
                         </div>
-                        <ul class="list-inline wizard mb-0">
+                        <ul class="list-inline wizard mb-0" *ngIf="isDateAfterCurrentDate(date); else huntingcheck">
                           <li class="next list-inline-item float-end"><button class="btn btn-primary" awNextStep>Next</button>
                           </li>
                         </ul>
+                        <ng-template #huntingcheck>
+                          <!-- Content to be displayed when the condition is false -->
+                          <p>date for save Hunting for this competition is Expired !!</p>
+                        </ng-template>
                       </aw-wizard-step>
           
                       <aw-wizard-step>

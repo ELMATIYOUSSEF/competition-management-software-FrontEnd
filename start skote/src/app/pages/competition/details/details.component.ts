@@ -33,12 +33,11 @@ export class DetailsComponent implements OnInit {
   members =[];
   RegisterMember : number ;
   distance : any ;
-
   Ranking: any[];
   selectedmember: any;
   selectedfish: any;
   selectedPoids: any;
- 
+  currentDate: Date = new Date(); 
 
   ngOnInit(): void {
     this.getallcompetition();
@@ -51,13 +50,22 @@ export class DetailsComponent implements OnInit {
       ]).subscribe(() => {
         console.log(this.competition?.date )
         this.date =new Date(this.competition?.date)
-        this.distance = this.date.getTime() - new Date().getTime();
+        this.distance = this.date.getTime() - this.currentDate.getTime();
         console.log(this.distance +' distance');
       }, (err) => {Swal.fire(err.error.message)} );      
     });
    
     this.getFishing();
   }
+
+  
+  isDateAfterCurrentDate(givenDate: Date): boolean {
+    const dateToCompare = new Date(givenDate);
+    dateToCompare.setHours(23, 59, 59, 999);
+    return dateToCompare > new Date();
+  }
+  
+
   /*
   getRankings(code: string): Observable<any> {
     return this.competitionService.findRankingByMemberAndCompetition(code).pipe(
@@ -138,8 +146,8 @@ export class DetailsComponent implements OnInit {
   }
 
   regiter(){
-    this.competitionService.registerInCompetition(this.competitionCode,this.RegisterMember).subscribe( err => {Swal.fire(err.error.message); console.error(err)});
-    Swal.fire('Done!', 'Member Registred!', 'success');
+    
+    this.competitionService.registerInCompetition(this.competitionCode,this.RegisterMember).subscribe((done) => {console.log(done.message+ "jskjs"); Swal.fire( 'Done!', 'Member Registred!', 'success'); } , err => {Swal.fire(err.error.message);});
     this.modalService.dismissAll();
   }
 }

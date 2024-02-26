@@ -36,19 +36,24 @@ export class CompetitionListComponent implements OnInit {
         this.competitions.push(newMember);
       });
     }
-    getStatusClass(date: string): string {
+    getStatusClass(date: string,bool :String): string {
       const currentDate = new Date();
       const competitionDate = new Date(date);
-  
-      if (currentDate < competitionDate) {
+      currentDate.setHours(0, 0, 0, 0);
+      competitionDate.setHours(0, 0, 0, 0);
+      console.log(bool , competitionDate ,currentDate);
+      if (bool == "Pending" ) {
         this.Status ="Pending";
+        return 'btn-warning'; 
+      }
+       else if (bool == "en cours") {
+        console.log(this.competitions)
+        this.Status ="en cours ";
         return 'btn-success'; 
-      } else if (currentDate > competitionDate) {
+      }
+      else {
         this.Status ="Completed";
         return 'btn-danger'; 
-      } else {
-        this.Status ="in progress";
-        return 'btn-warning'; 
       }
     }
 

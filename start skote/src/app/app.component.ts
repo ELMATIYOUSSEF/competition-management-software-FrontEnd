@@ -7,6 +7,8 @@ import { Component , OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit  {
 
+  constructor(){}
+
   ngOnInit() {
     // document.getElementsByTagName("html")[0].setAttribute("dir", "rtl");
   }

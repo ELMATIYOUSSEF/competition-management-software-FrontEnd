@@ -47,6 +47,7 @@ export interface Competition {
   amount?: number;
   ranks?: ApiResponseRanking;
   hunting?:any;
+  endDateValid?:boolean;
 }
 
 export class classCompetition implements Competition {
@@ -60,6 +61,7 @@ export class classCompetition implements Competition {
     amount?: number,
     ranks?: ApiResponseRanking,
     hunting?:any[],
+    endDateValid?:boolean,
   ){}
 }
 

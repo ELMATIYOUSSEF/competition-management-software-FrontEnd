@@ -40,7 +40,7 @@
                       </a>
                     </td>
                     <td>
-                      <button [ngClass]=" getStatusClass(competition.date)"> {{ Status }}  </button>
+                      <button [ngClass]=" getStatusClass(competition.date,competition.endDateValid)"> {{ Status }} </button>
                     </td>
                   </tr>
                 </tbody>

@@ -28,6 +28,7 @@ export interface Member {
   nationality?: string;
   identityDocumentType?: string;
   identityNumber?: string;
+  enabled?: boolean;
 }
 
 export class classMember implements Member {
